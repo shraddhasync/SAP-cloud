@@ -85,8 +85,7 @@ lo_account->get_balance(  ).
 data(lo_account2) = new zcl_constructor1( 1000 ).
 data(lo_account3) = new zcl_constructor1( 2000 ).
 
-lo_Account3->get_total_account(  ).
-out->write(  | account count: { lo_account3->get_total_account(  ) } | ).
+out->write(  | account count: { zcl_constructor1=>get_total_account(  ) } | ).
 
 
 endmethod.
