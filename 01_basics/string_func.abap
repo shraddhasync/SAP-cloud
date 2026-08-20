@@ -22,6 +22,8 @@ method if_oo_Adt_classrun~main.
   "length of string
   out->write( |length of { text1 } is { strlen( text1 ) } | ).
 
+  "concatenate - use && btwn both strings you want to add.
+
   "character count
   out->write( | { numofchar( text1 ) } | ).
 
