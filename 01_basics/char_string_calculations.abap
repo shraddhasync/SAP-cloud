@@ -29,8 +29,7 @@ CLASS zcl_char_string_calculations IMPLEMENTATION.
 
        "concatenation
        DATA b_char type c length 10 value 'platform'.
-       data sep type c length 2 value '**'.
-       concatenate a_String b_char into a_string separated by sep.
+       a_String = a_String && b_char.      OR        a_String = |{a_String}**{b_Char}|.
        out->write( | { a_String } | ).
 
 
@@ -45,7 +44,7 @@ CLASS zcl_char_string_calculations IMPLEMENTATION.
              out->write( tex3 ).
 
              "substring by offset and length
-             tex3 = tex3+3(4).
+             tex3 = substring( val = tex3 off = 3 len = 4 ).
              out->write(  tex3 ).
 
 
