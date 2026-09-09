@@ -45,7 +45,7 @@ endif.
 endmethod.
 
 method get_balance.
-if iv_passcode = mv_passcode AND mv_balance > 0.
+if iv_passcode = mv_passcode.
 rv_balance = mv_balance.
 endif.
 endmethod.
