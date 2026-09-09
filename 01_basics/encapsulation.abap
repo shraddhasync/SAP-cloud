@@ -45,11 +45,12 @@ endif.
 endmethod.
 
 method get_balance.
+if iv_passcode = mv_passcode AND mv_balance > 0.
 rv_balance = mv_balance.
+endif.
 endmethod.
 
 ENDCLASS.
-
 CLASS zcl_secure_vault_runner DEFINITION
   PUBLIC
   FINAL
