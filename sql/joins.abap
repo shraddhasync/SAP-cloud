@@ -48,7 +48,7 @@ INTO table @data(wa_rightjoin).
 out->write( wa_rightjoin ).
 
 
-
+"FULL JOIN is not supported in ABAP
 "you can have multiple joins too inside one query
 endmethod.
 ENDCLASS.
