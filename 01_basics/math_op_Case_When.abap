@@ -36,6 +36,6 @@ floor( division( balance, 7, 4 ) ) as round_down,
    else 'low value'
    end as customer_type
 from zvr_account into table @data(wa).
-
+out->write( wa ).
 endmethod.
 ENDCLASS.
