@@ -19,7 +19,7 @@ method if_oo_adt_classrun~main.
 "set operation
 
 "UNION
-select customer_id, FIRST_name, LAST_name from zvr_customer
+select customer_id, FIRST_name, LAST_name from zvr_customer                     "order of column must be same for both SELECT
 union
 select customer_id, FIRST_name, LAST_name from zvr_customer_Arc
 order by customer_id
