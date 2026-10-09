@@ -1,0 +1,112 @@
+"CDS view example 1
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'transaction by date range vew entity'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity zl_trans_by_daterange 
+with parameters p_fromdate : zatransaction_trans_date,
+                p_todate : zatransaction_trans_date
+as select from zvr_transaction
+{
+  key trans_id,
+  account_id,
+  trans_date,
+  trans_time,
+  @Semantics.amount.currencyCode : 'currency_Code'
+  amount,
+  currency_code,
+  trans_type
+    
+}
+where trans_date between $parameters.p_fromdate and $parameters.p_todate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"CDS view example 2
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'parametrized cds view'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity zl_customer_by_City 
+with parameters p_City : zacustomer_city
+as select from zvr_customer
+{
+
+ key customer_id,
+ first_name,
+ last_name,
+ city,
+ email_id,
+ join_date
+    
+}
+where city = $parameters.p_City
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"CLASS
+
+CLASS zcl_param_view_entity DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  interfaces if_oo_adt_Classrun.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_param_view_entity IMPLEMENTATION.
+
+method if_oo_Adt_classrun~main.
+
+select * from zl_customer_by_city( p_city = 'Delhi' ) into table @data(wa_1).
+out->write( wa_1 ).
+
+select * from zl_trans_by_Daterange( p_fromdate = '20260202' , p_todate = '20270302' ) into table @data(wa_2).
+out->write( wa_2 ).
+endmethod.
+ENDCLASS.
