@@ -1,3 +1,6 @@
+"Parametrized cds view : we can pass parameters just like function
+
+
 "CDS view example 1
 
 @AbapCatalog.viewEnhancementCategory: [#NONE]
