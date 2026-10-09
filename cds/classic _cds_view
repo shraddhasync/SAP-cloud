@@ -1,3 +1,4 @@
+"classic cds view: We use "define view " in syntax, it creates another background cds view ,that somehow reduce faster working and thus we introduced modern cds view. 
 "CDS
 
 @AbapCatalog.sqlViewName: 'ZVRCUSTVIEW'
