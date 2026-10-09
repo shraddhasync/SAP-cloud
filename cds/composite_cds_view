@@ -1,0 +1,93 @@
+"composite CDS view: brings data together from multiple databases tables or view using joins or associations.
+  Often used to combine master and transational data 
+
+"TWO WAYS:
+i) The Join Way: "Hey database, smash zvr_customer and zvr_account together right now and bring me everything." (Eager loading)
+ii)The Association Way: "Hey database, here is the relationship between zvr_customer and zvr_account. Keep them separate for now, but if user asks for the account details later, fetch them on demand." (Lazy loading)
+
+
+
+
+
+
+
+"COMPOSITE JOINS
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'composite cds view'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity zl_composite_cds_view as
+select from zvr_customer as c
+left outer join zvr_account as a
+on c.customer_id = a.customer_id
+{
+    key c.customer_id,
+    c.first_name,
+    c.city,
+    a.account_id  as account_id
+}
+
+
+
+
+
+
+
+
+"COMPOSITE ASSOCIATION
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'association cds view'
+@Metadata.ignorePropagatedAnnotations: true
+
+//IMP : by default thee association are navigated as left outer join
+define view entity ZL_composite_asssociation_cds as 
+select from zvr_customer
+association [1..*] to zvr_account as _account          //[1..*] is cardinality and "_account" is name of association  
+on $projection.customer_id = _account.customer_id        
+{
+
+  key customer_id,
+  first_name,
+  city,
+  _account.account_id
+}
+
+
+
+
+
+
+
+
+"CLASS
+
+CLASS zcl_composite_cds_view DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  interfaces if_oo_Adt_classrun.
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_composite_cds_view IMPLEMENTATION.
+
+method if_oo_adt_classrun~main.
+
+select * from zl_composite_cds_view into table @data(wa_join).
+out->write( wa_join ).
+
+select * from zl_composite_asssociation_cds into table @data(wa_asso).
+out->write( wa_asso ).
+
+endmethod.
+ENDCLASS.
+
