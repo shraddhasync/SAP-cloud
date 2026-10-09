@@ -1,0 +1,57 @@
+"CDS view
+
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'modern cds view customer'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity zc_customer_view_entity as select from zvr_customer
+{
+    key customer_id,
+    first_name,
+    last_name,
+    dob,
+    city,
+    email_id,
+    join_date,
+    concat_with_space(first_name, last_name , 1) as full_name,
+    dats_days_between(join_date, $session.system_date ) as days_since_joined
+}
+
+
+
+
+
+
+
+
+" CLASS
+
+CLASS zcl_modern_cds_view DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+  interfaces if_oo_Adt_classrun.
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_modern_cds_view IMPLEMENTATION.
+
+method if_oo_adt_classrun~main.
+
+select * from zc_customer_view_entity into table @data(wa_1).
+
+DATA item type zc_customer_view_entity.
+
+LOOP AT wa_1 into item.
+out->write( item-first_name ).
+endloop.
+endmethod.
+ENDCLASS.
+
