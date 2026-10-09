@@ -1,3 +1,5 @@
+"Modern cds view: We use "define view entity" in syntax as by this modern way it does not create another background cds view in database and thus helps with faster working. 
+
 "CDS view
 
 @AbapCatalog.viewEnhancementCategory: [#NONE]
