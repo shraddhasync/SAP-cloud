@@ -1,0 +1,53 @@
+"CDS
+
+@AbapCatalog.sqlViewName: 'ZVRCUSTVIEW'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'classical customer cds view'
+@Metadata.ignorePropagatedAnnotations: true
+define view z_c_customer_view as select from zvr_customer
+{
+    key customer_id,
+    first_name,
+    last_name,
+    dob,
+    city,
+    email_id,
+    join_date
+}
+
+
+
+
+
+"CLASS
+
+CLASS zcl_classic_cds_view DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  interfaces if_oo_Adt_classrun.
+
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_classic_cds_view IMPLEMENTATION.
+
+method if_oo_Adt_classrun~main.
+
+ select * from z_c_customer_view into table @data(wa_1).
+
+ DATA workarea type z_c_customer_view.
+
+ LOOP AT wa_1 into workarea.
+ out->write( | { workarea-customer_id } : { workarea-first_name } | ).
+ endloop.
+
+endmethod.
+ENDCLASS.
