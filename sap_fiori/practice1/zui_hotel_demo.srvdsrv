@@ -1,0 +1,6 @@
+"create service definition
+
+@EndUserText.label: 'service def'
+define service Zui_hotel_demo {
+  expose z_e_hotel_Demo as booking;
+}
