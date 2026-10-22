@@ -1,3 +1,5 @@
+"insert data in database table
+
 CLASS zcl_fill_hotel_demo DEFINITION
   PUBLIC
   FINAL
